@@ -5,6 +5,18 @@
     <title>Connect</title>
   </head>
   <body>
+    <webview
+      id="whatsapp1"
+      src="https://web.whatsapp.com"
+      partition="persist:whatsapp1"
+      useragent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.98 Safari/537.36"
+    ></webview>
+    <webview
+      id="whatsapp2"
+      src="https://web.whatsapp.com"
+      partition="persist:whatsapp2"
+      useragent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.98 Safari/537.36"
+    ></webview>
     <script>
       require("./renderer.js");
     </script>
