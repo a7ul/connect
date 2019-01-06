@@ -1,3 +1,4 @@
+/* eslint-disable  import/no-extraneous-dependencies */
 const CopyWebpackPlugin = require("copy-webpack-plugin");
 const CleanWebpackPlugin = require("clean-webpack-plugin");
 const constants = require("./constants");
@@ -10,11 +11,14 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.m?js$/,
+        test: /\.m?jsx?$/,
         exclude: /(node_modules)/,
         use: { loader: "babel-loader" }
       }
     ]
+  },
+  resolve: {
+    extensions: [".js", ".jsx"]
   },
   plugins: [
     new CleanWebpackPlugin([DIST_DIR], { root: ROOT_DIR }),
