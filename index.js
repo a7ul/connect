@@ -1,6 +1,6 @@
 // Modules to control application life and create native browser window
-const { app, session, BrowserWindow } = require("electron");
-
+const { app, BrowserWindow } = require("electron");
+const path = require("path");
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 let mainWindow;
@@ -9,17 +9,19 @@ function createWindow() {
   // Create the browser window.
   mainWindow = new BrowserWindow({
     width: 800,
-    height: 600
+    height: 600,
+    webPreferences: {
+      nodeIntegration: false
+    }
   });
-  mainWindow.webContents.setUserAgent(
-    "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.98 Safari/537.36"
-  );
 
-  // and load the index.html of the app.
-  mainWindow.loadFile("index.html");
-
-  // Open the DevTools.
-  mainWindow.webContents.openDevTools();
+  if (isDevelopment()) {
+    const { DEV_PORT } = require("./webpack/constants");
+    mainWindow.loadURL(`http://localhost:${DEV_PORT}`);
+    mainWindow.webContents.openDevTools(); // Open the DevTools.
+  } else {
+    mainWindow.loadFile(path.resolve(__dirname, "dist/index.html"));
+  }
 
   // Emitted when the window is closed.
   mainWindow.on("closed", function() {
@@ -27,24 +29,6 @@ function createWindow() {
     // in an array if your app supports multi windows, this is the time
     // when you should delete the corresponding element.
     mainWindow = null;
-  });
-
-  mainWindow.webContents.session.webRequest.onHeadersReceived(
-    {},
-    (detail, callback) => {
-      const xFrameOriginKey = Object.keys(detail.responseHeaders).find(header =>
-        String(header).match(/^x-frame-options$/i)
-      );
-      if (xFrameOriginKey) {
-        delete detail.responseHeaders[xFrameOriginKey];
-      }
-      callback({ cancel: false, responseHeaders: detail.responseHeaders });
-    }
-  );
-
-  session.defaultSession.webRequest.onBeforeSendHeaders((details, callback) => {
-    details.requestHeaders["User-Agent"] = "";
-    callback({ cancel: false, requestHeaders: details.requestHeaders });
   });
 }
 
@@ -74,3 +58,7 @@ app.on("activate", function() {
 
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and require them here.
+
+function isDevelopment() {
+  return process.env.ASSET_ENV === "development";
+}

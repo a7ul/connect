@@ -1,22 +1,36 @@
 {
   "name": "electron-quick-start",
   "version": "1.0.0",
-  "description": "A minimal Electron application",
-  "main": "main.js",
+  "private": true,
+  "description": "An open source aggregator for web based services like whatsapp (multiple accounts), telegram, slack, google calendar, google keep, evernote, etc",
+  "main": "index.js",
   "scripts": {
-    "start": "electron  ."
+    "start": "webpack-dev-server --config webpack/dev.js",
+    "build": "webpack --config webpack/prod.js",
+    "electron:dev": "ASSET_ENV='development' electron .",
+    "electron:prod": "ASSET_ENV='production' electron ."
   },
-  "repository": "https://github.com/electron/electron-quick-start",
+  "repository": "https://github.com/master-atul/connect",
   "keywords": [
-    "Electron",
-    "quick",
-    "start",
-    "tutorial",
-    "demo"
+    "connect"
   ],
-  "author": "GitHub",
-  "license": "CC0-1.0",
+  "author": "master-atul",
+  "license": "MIT",
   "devDependencies": {
-    "electron": "^4.0.0"
+    "@babel/core": "^7.2.2",
+    "@babel/preset-env": "^7.2.3",
+    "@babel/preset-react": "^7.0.0",
+    "babel-loader": "^8.0.5",
+    "clean-webpack-plugin": "^1.0.0",
+    "copy-webpack-plugin": "^4.6.0",
+    "electron": "^4.0.0",
+    "webpack": "^4.28.3",
+    "webpack-cli": "^3.2.0",
+    "webpack-dev-server": "^3.1.14",
+    "webpack-merge": "^4.2.1"
+  },
+  "dependencies": {
+    "react": "^16.7.0",
+    "react-dom": "^16.7.0"
   }
 }
