@@ -19,21 +19,18 @@ Note: If you're using Linux Bash for Windows, [see this guide](https://www.howto
 
 ## To Run
 
-- **npm run start** : Opens the development webpack dev server on localhost:7654 and opens it in browser for development
+- **npm run start** : Opens the development webpack dev server on localhost:7654.
 - **npm run build** : Runs the webpack production bundle build and saves the bundle in dist folder.
 - **npm run electron:dev** : Runs electron and loads the localhost:7654 (dev app) url.
 - **npm run electron:prod** : Runs electron and loads the minified bundled app (prod app) from dist folder.
 
 **For development:**
-
 Run `npm run start` and in another terminal run `npm run electron:dev`
 
 **For checking prod build:**
-
 Run `npm run build` and in another terminal run `npm run electron:prod`
 
 **For bundling**
-
 _coming soon_
 
 ## License
